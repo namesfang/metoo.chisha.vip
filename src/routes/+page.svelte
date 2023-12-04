@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  
+  import FabEmpty from '$components/fab-empty/index.svelte';
+
   export let data;
 
-  console.log($page);
+  let style = data.visited.count > 1 ? 'padding-bottom: 28rem' : ''
 </script>
 
 <div class="container">
-  <div class="history-wrapper">
+  <div class="history-wrapper" style={style}>
     <div class="discover">
       <img src="{data.static}/images/home/head-bg2.png" alt="" class="png"/>
       <ul class="toolbar">
@@ -20,19 +20,31 @@
       </ul>
     </div>
     <div class="history">
-      <h2>使用记录</h2>
+      <h3>使用记录</h3>
+      {#if data.visited.count > 0}
       <ul>
-        {#each data.visited as t}
+        {#each data.visited.list as t}
           <li>
             <a href="/party/{t.id}">
               <div class="cover">
-                <img src={t.cover} alt=""/>
+                <img src={t.cover} alt={t.name}/>
               </div>
-              <h2>{t.name}</h2>
+              <div class="text">
+                <h2>{t.name}</h2>
+                <p>{t.desc}</p>
+              </div>
             </a>
           </li>
         {/each}
       </ul>
+      <p class="tips">共{data.visited.count}条记录</p>
+      {:else}
+        {#if data.user}
+          <p class="tips tips-empty">您可以<a href="">创建</a>或选择<a href="">加入</a></p>
+        {:else}
+          <FabEmpty>请登录后创建或选择加入</FabEmpty>
+        {/if}
+      {/if}
     </div>
   </div>
 </div>
@@ -42,15 +54,20 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    background: {
-      color: #bd1818;
-      repeat: no-repeat;
-      size: 100%;
-      position: bottom center;
-      image: url(#{$static}/images/home/foot-bg.png);
-    };
+    
 
     .history-wrapper {
+      min-height: 100%;
+      height: auto;
+      overflow: hidden;
+      background: {
+        color: #bd1818;
+        repeat: no-repeat;
+        size: 100%;
+        position: bottom center;
+        image: url(#{$static}/images/home/foot-bg.png);
+      }
+
       .discover {
         height: auto;
         overflow: hidden;
@@ -120,17 +137,82 @@
       }
       
       .history {
-        margin: 0 1rem;
+        margin: 0 1rem 1rem;
         border-radius: 1rem;
         box-shadow: 3px 3px 0 #FFC900;
-        background-color: #fff;
+        background-color: rgb(255, 255, 255, .9);
         padding: 0 1rem;
 
-        h2 {
+        h3 {
           height: 3rem;
           line-height: 3rem;
           font-size: 1rem;
-          color: #FF7E00;
+          color: #999;
+        }
+
+        ul {
+          height: auto;
+          overflow: hidden;
+          li {
+            padding-bottom: .5rem;
+            margin-bottom: .5rem;
+            
+            &:last-child {
+              margin-bottom: 0;
+            }
+
+            a {
+              padding: .8rem;
+              border-radius: .5rem;
+              display: flex;
+              background-color: #fff;
+              &:active {
+                background-color: #f2f2f2;
+              }
+              .cover {
+                width: 4rem;
+                img {
+                  width: 4rem;
+                  height: 4rem;
+                  display: block;
+                }
+              }
+
+              .text {
+                width: 0;
+                flex: 1;
+                padding-left: 1rem;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                h2 {
+                  height: 1.68rem;
+                  line-height: 1.68rem;
+                  font: {
+                    size: 1rem;
+                    weight: bold;
+                  }
+                  color: #FF7E00;
+                }
+                p {
+                  line-height: 1rem;
+                  font-size: .86rem;
+                  color: #898989;
+                }
+              }
+              
+            }
+          }
+        }
+
+        .tips {
+          line-height: 4rem;
+          text-align: center;
+          font-size: .86rem;
+          color: #898989;
+          a {
+            color: #FF7E00;
+          }
         }
       }
     }

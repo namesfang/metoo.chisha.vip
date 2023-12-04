@@ -54,7 +54,7 @@ const authentication = async (event: RequestEvent)=> {
     if(passport.includes(path)) {
       throw redirect(302, '/');
     }
-    const { success, message, data } = await get('i/profile').send<User.Info>(event.cookies);
+    const { success, message, data } = await get('user/profile').send<User.Info>(event.cookies);
     if(success) {
       event.locals = mergeLocals({
         user: data
