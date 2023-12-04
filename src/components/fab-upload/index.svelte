@@ -2,6 +2,7 @@
   import QiniuUpload from './qiniu-upload/index.svelte'
 	import type { Label } from './qiniu-upload/utils';
 
+  // image,image+svg,video,audio,doc,zip
   export let type = 'image'
   export let platform: UploadPlatform = 'qiniu'
   export let region: Label = '华东-浙江';

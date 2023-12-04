@@ -5,3 +5,22 @@ body {
   margin: 0;
   height: 100%;
 }
+
+a {
+  -webkit-tap-highlight-color: transparent;
+  
+}
+
+a, a:hover, a:active, a:visited, a:link, a:focus {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -moz-user-focus: none;
+  outline: none;
+  text-decoration: none;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}

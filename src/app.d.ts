@@ -2,8 +2,11 @@
 // for information about these interfaces
 declare global {
 	namespace App {
-		interface Locals {
-			user?: User.Info
+		type OptionalLocals = {
+			user: User.Info | null
+		}
+		interface Locals extends OptionalLocals {
+			static: string
 		}
 		interface Error {
 			id: string;
@@ -12,7 +15,7 @@ declare global {
 	}
 
 	namespace User {
-		interface Info extends App.Locals {
+		interface Info {
 			id: number;
 			nickname: string;
 			phone: string;

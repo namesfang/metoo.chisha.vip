@@ -3,7 +3,14 @@ import { building } from "$app/environment";
 import { PUBLIC_STATIC_URL } from "$env/static/public";
 import { get } from "$lib/request";
 
-type replaceStack = [string, (event: RequestEvent)=> string]
+type replaceStack = [string, (event: RequestEvent)=> string];
+
+const mergeLocals = (locals: App.OptionalLocals): App.Locals => {
+  return {
+    static: PUBLIC_STATIC_URL,
+    ...locals,
+  }
+}
 
 /**
  * 替换HTML
@@ -49,9 +56,9 @@ const authentication = async (event: RequestEvent)=> {
     }
     const { success, message, data } = await get('i/profile').send<User.Info>(event.cookies);
     if(success) {
-      event.locals = {
-        user: data,
-      };
+      event.locals = mergeLocals({
+        user: data
+      });
     } else {
       console.log(`${message} 获得 i/profile`, success);
     }
@@ -65,6 +72,11 @@ const authentication = async (event: RequestEvent)=> {
 
 // 
 export const handle: Handle = async ({ event, resolve })=> {
+  //
+  event.locals = mergeLocals({
+    user: null
+  });
+
   // "/[fallback]" 是sveltekit内部build时需要
   // "/static/*" 是资源
   const { pathname } = event.url;
