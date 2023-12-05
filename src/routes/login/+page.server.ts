@@ -5,6 +5,12 @@ type UserInfo = {
   token: string;
 }
 
+export function load({ locals }) {
+  return {
+    locals
+  }
+}
+
 export const actions = {
   async default({ cookies, request }) {
     const formData = await request.formData();
