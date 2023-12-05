@@ -11,12 +11,18 @@
     <div class="discover">
       <img src="{data.static}/images/home/head-bg2.png" alt="" class="png"/>
       <ul class="toolbar">
+        {#if data.user}
+        <li>
+          <a href="/party">我的饭</a>
+        </li>
+        {:else}
         <li>
           <a href="/login">登录</a>
         </li>
         <li>
           <a href="/signup">注册</a>
         </li>
+        {/if}
       </ul>
     </div>
     <div class="history">
@@ -40,7 +46,12 @@
       <p class="tips">共{data.visited.count}条记录</p>
       {:else}
         {#if data.user}
-          <p class="tips tips-empty">您可以<a href="">创建</a>或选择<a href="">加入</a></p>
+          <FabEmpty>
+            <span>您可以</span>
+            <a href="/party/create">创建</a>
+            <span>或选择</span>
+            <a href="/party/join">加入</a>
+          </FabEmpty>
         {:else}
           <FabEmpty>请登录后创建或选择加入</FabEmpty>
         {/if}
@@ -117,7 +128,7 @@
               content: "";
               width: 100%;
               height: 100%;
-              background-color: #FFC900;
+              background-color: var(--alerts-status-warning);
               position: absolute;
               top: -4px;
               left: -4px;
@@ -139,7 +150,7 @@
       .history {
         margin: 0 1rem 1rem;
         border-radius: 1rem;
-        box-shadow: 3px 3px 0 #FFC900;
+        box-shadow: 3px 3px 0 var(--primary-300);
         background-color: rgb(255, 255, 255, .9);
         padding: 0 1rem;
 
