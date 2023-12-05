@@ -60,7 +60,7 @@ const authentication = async (event: RequestEvent)=> {
         user: data
       });
     } else {
-      console.log(`${message} 获得 i/profile`, success);
+      console.log(`${message} 获得 user/profile`, success);
     }
   } else {
     // 未登录时且访问的页面需要登录时自动跳转到登录页面
