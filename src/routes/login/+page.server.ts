@@ -1,4 +1,5 @@
 import { post } from '$lib/request.js';
+// import { LoginValidator } from '$lib/validator/forms/login.js';
 import { fail, redirect } from '@sveltejs/kit';
 
 type UserInfo = {
@@ -19,6 +20,12 @@ export const actions = {
       phone: '',
       password: '',
     }
+
+    // try {
+    //   const errors = await LoginValidator(postData)
+    // } catch (error) {
+    //   //
+    // }
 
     let name: keyof typeof postData;
     let value;

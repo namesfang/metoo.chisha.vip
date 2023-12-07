@@ -6,6 +6,14 @@
   export let form;
   export let data;
 
+  let toggleType = 'eye-disable';
+  let inputType = 'password';
+  const toggle = ()=> {
+    toggleType = toggleType === 'eye' ? 'eye-disable' : 'eye'
+    inputType = inputType === 'text' ? 'password' : 'text'
+    console.log('df')
+  }
+
 </script>
 
 {#if form?.error}
@@ -25,8 +33,8 @@
       </div>
       <div class="t">
         <FabIcon type="lock" class="icon"/>
-        <input name="password" autocomplete="off" placeholder="登录密码"/>
-        <FabIcon type="icon-eye-disable"/>
+        <input type={inputType} name="password" autocomplete="off" placeholder="登录密码"/>
+        <FabIcon on:click={toggle} type={toggleType} class="toggle"/>
       </div>
     </div>
     <div class="item forgot-password">
@@ -76,6 +84,19 @@
       .t {
         height: 2.8rem;
         position: relative;
+
+        :global(.toggle) {
+          width: 2.8rem;
+          height: 2.8rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: 100;
+        }
+
         :global(.icon) {
           width: 2.8rem;
           height: 2.8rem;
@@ -87,11 +108,6 @@
           left: 0;
           top: 0;
           z-index: 100;
-
-          &[class^=icon-eye] {
-            left: inherit;
-            right: 0;
-          }
         }
 
         input {
