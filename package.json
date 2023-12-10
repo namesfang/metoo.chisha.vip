@@ -33,8 +33,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@types/js-cookie": "^3.0.6",
 		"@types/qs": "^6.9.10",
 		"dayjs": "^1.11.10",
+		"js-cookie": "^3.0.5",
 		"merge": "^2.1.1",
 		"qs": "^6.11.2"
 	}
