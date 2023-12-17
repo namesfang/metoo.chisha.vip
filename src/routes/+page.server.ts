@@ -16,14 +16,14 @@ export const load = async ({ locals }) => {
   // 获得历史
   const { success, data } = await get('metoo').send<MetooResult>();
 
-  const visited: MetooResult = {
+  let visited: MetooResult = {
     count: 0,
     list: []
   };
 
-  // if(success) {
-  //   visited = data;
-  // }
+  if(success) {
+   visited = data;
+  }
   return {
     user: locals.user,
     static: locals.static,
