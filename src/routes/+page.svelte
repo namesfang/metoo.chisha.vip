@@ -13,7 +13,7 @@
       <ul class="toolbar">
         {#if data.user}
         <li>
-          <a href="/party">我的饭</a>
+          <a href="/party">我的</a>
         </li>
         {:else}
         <li>
