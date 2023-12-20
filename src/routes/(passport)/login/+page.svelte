@@ -6,8 +6,23 @@
 
   let masking = true;
 
+  let formModel = {
+    phone: '',
+    password: ''
+  }
+
   const toggle = ()=> {
     masking = !masking
+  }
+
+  let formElement: HTMLFormElement;
+
+  const sub = function(e: Event) {
+    if(formModel.phone === '' || formModel.password === '') {
+      alert('手机号码或密码不能为空')
+      e.preventDefault()
+      return
+    }
   }
 
 </script>
@@ -17,15 +32,15 @@
   <p>{ form.error2 }</p>
 {/if}
 
-<form method="POST" class="form-wrapper">
+<form bind:this={formElement} on:submit={ sub } method="POST" class="form-wrapper">
   <div class="item typing">
     <div class="t">
       <FabIcon type="mobile" class="icon"/>
-      <input name="phone" autocomplete="off" placeholder="手机号码"/>
+      <input bind:value={formModel.phone} name="phone" type="text" autocomplete="off" placeholder="手机号码"/>
     </div>
     <div class="t">
       <FabIcon type="lock" class="icon"/>
-      <input type={masking ? 'password' : 'text'} name="password" autocomplete="off" placeholder="登录密码"/>
+      <input bind:value={formModel.password} name="password" type="password" placeholder="登录密码"/>
       <FabButton on:click={toggle} icon={masking ? 'eye-disable' : 'eye'} title="显示/隐藏密码" class="toggle"/>
     </div>
   </div>

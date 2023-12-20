@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { PUBLIC_STATIC_URL } from '$env/static/public';
+
+  import FabCopyright from '$components/fab-copyright/index.svelte';
 </script>
 
 <div class="wrapper">
@@ -7,6 +9,7 @@
     <img src="{PUBLIC_STATIC_URL}/images/logo-text.png" alt="" />
   </div>
   <slot/>
+  <FabCopyright/>
 </div>
 
 <style lang="scss">

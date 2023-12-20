@@ -50,7 +50,8 @@ export const actions = {
       });
       throw redirect(302, '/');
     } else {
-      throw fail(code, {
+      return fail(500, {
+        code,
         message,
       });
     }
