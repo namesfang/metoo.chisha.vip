@@ -1,31 +1,51 @@
 <script lang="ts">
-  type ButtonType = "button" | "submit" | "reset";
-  export let type: ButtonType = 'button';
+  import FabIcon from '$components/fab-icon/index.svelte';
+	import { createEventDispatcher } from 'svelte';
+
+  enum ButtonType {
+    button = 'button',
+    submit = 'submit',
+    reset = 'reset'
+  }
+
+  let className = '';
+  
+  const dispatch = createEventDispatcher();
+  const click = ()=> {
+    dispatch('click')
+  };
+
+  export let title = '';
+  export let href = '';
+  export let link = false;
+  export let type = ButtonType.button;
+  export let icon: string = '';
+  export { className as class }
+
+  $: className = `${className} fab-icon-button`
+
 </script>
 
-<button { type } class="fab-button">
+{#if link}
+<a class={className} {href}>
+  {#if icon.length > 0}
+  <FabIcon type={icon}/>
+  {/if}
+  <slot/>
+</a>
+{:else}
+<button on:click={ click } {type} class={className} {title}>
+  {#if icon.length > 0}
+  <FabIcon type={icon}/>
+  {/if}
   <slot/>
 </button>
+{/if}
+
 
 <style lang="scss">
-  .fab-button {
-    width: 100%;
-    height: 2.36rem;
-    padding: 0 1rem;
-    box-sizing: border-box;
+  .fab-icon-button {
+    background-color: transparent;
     border: 0;
-    border-radius: var(--input-primary-border-radius);
-    color: var(--input-primary-color);
-    outline: none;
-    background-color: var(--input-primary-background-color);
-    &:active {
-      animation-name: button-wave-spread, button-wave-opacity;
-    }
-    &:focus {
-      box-shadow: var(--input-primary-box-shadow);
-    }
-    &::placeholder {
-      color: var(--input-primary-placeholder-color);
-    }
   }
 </style>
