@@ -1,6 +1,6 @@
 <script lang="ts">
   import FabIcon from '$components/fab-icon/index.svelte';
-  import FabIconButton from '$components/fab-icon-button/index.svelte';
+  import FabButton from '$components/fab-button/index.svelte';
   
   export let form;
 
@@ -32,7 +32,7 @@
     <div class="t">
       <FabIcon type="lock" class="icon"/>
       <input type={masking ? 'password' : 'text'} name="password" autocomplete="off" placeholder="登录密码"/>
-      <FabIconButton on:click={toggle} icon={masking ? 'eye-disable' : 'eye'} title="显示/隐藏密码" class="toggle"/>
+      <FabButton on:click={toggle} icon={masking ? 'eye-disable' : 'eye'} title="显示/隐藏密码" class="toggle"/>
     </div>
   </div>
   <div class="item action">
